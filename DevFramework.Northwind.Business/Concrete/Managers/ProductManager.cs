@@ -6,8 +6,10 @@ using DevFramework.Northwind.Entities.Concrete;
 using DevFramework.Core.Aspects.Postsharp;
 using System.Collections.Generic;
 using System.Transactions;
+using DevFramework.Core.Aspects.Postsharp.CacheAspect;
 using DevFramework.Core.Aspects.Postsharp.TransactionAspect;
 using DevFramework.Core.Aspects.Postsharp.ValidationAspects;
+using DevFramework.Core.CrossCuttingConcerns.Caching.Microsoft;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
 {
@@ -25,6 +27,7 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
             return _productDal.Add(product);
         }
 
+        [CacheAspect(typeof(MemoryCacheManager))]
         public List<Product> GetAll()
         {
             return _productDal.GetList();
