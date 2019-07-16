@@ -23,7 +23,7 @@ namespace DevFramework.Northwind.MvcWebUI.Controllers
             {
                 Products = _productService.GetAll()
             };
-            
+
             return View(model);
         }
 
@@ -37,6 +37,27 @@ namespace DevFramework.Northwind.MvcWebUI.Controllers
                 UnitPrice = 22
             });
             return "Added";
+        }
+
+        public string AddUpdate()
+        {
+            _productService.TransactionalOperation(new Product
+            {
+                CategoryID = 1,
+                ProductName = "Notebook",
+                QuantityPerUnit = "2",
+                UnitPrice = 2
+            },
+            new Product
+            {
+                CategoryID = 1,
+                ProductName = "Notebook",
+                QuantityPerUnit = "2",
+                UnitPrice = 10
+            }
+            );
+
+            return "Done";
         }
     }
 }

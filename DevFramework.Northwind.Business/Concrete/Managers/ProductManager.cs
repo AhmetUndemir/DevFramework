@@ -50,6 +50,7 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         }
 
         [TransactionScopeAspect]
+        [FluentValidationAspect(typeof(ProductValidatior))]
         public void TransactionalOperation(Product product1, Product product2)
         {
 
