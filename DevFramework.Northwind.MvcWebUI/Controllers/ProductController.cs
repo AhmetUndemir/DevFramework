@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DevFramework.Northwind.Business.Abstract;
+using DevFramework.Northwind.Entities.Concrete;
 
 namespace DevFramework.Northwind.MvcWebUI.Controllers
 {
@@ -24,6 +25,18 @@ namespace DevFramework.Northwind.MvcWebUI.Controllers
             };
             
             return View(model);
+        }
+
+        public string Add()
+        {
+            _productService.Add(new Product
+            {
+                CategoryID = 1,
+                ProductName = "Notebook",
+                QuantityPerUnit = "2",
+                UnitPrice = 22
+            });
+            return "Added";
         }
     }
 }

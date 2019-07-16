@@ -17,6 +17,7 @@ namespace DevFramework.Northwind.Business.ValidationRules.FluentValidation
             RuleFor(p => p.UnitPrice).GreaterThan(0);
             RuleFor(p => p.QuantityPerUnit).NotEmpty();
             RuleFor(p => p.ProductName).Length(2, 20);
+            RuleFor(p => p.UnitPrice).GreaterThan(20).When(p => p.CategoryID == 1);
         }
     }
 }
