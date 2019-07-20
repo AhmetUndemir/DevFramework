@@ -33,7 +33,7 @@ namespace DevFramework.Northwind.MvcWebUI
             try
             {
                 var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-                if (authCookie != null)
+                if (authCookie == null)
                 {
                     return;
                 }
