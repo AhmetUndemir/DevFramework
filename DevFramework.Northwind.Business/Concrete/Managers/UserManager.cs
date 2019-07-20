@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DevFramework.Northwind.Business.Abstract;
 using DevFramework.Northwind.DataAccess.Abstract;
+using DevFramework.Northwind.Entities.ComplexTypes;
 using DevFramework.Northwind.Entities.Concrete;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
@@ -22,6 +23,11 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         public User GetByUserNameAndPassword(string userName, string password)
         {
             return _userDal.Get(u => u.UserName == userName & u.Password == password);
+        }
+
+        public List<UserRoleItem> GetUserRoles(User user)
+        {
+            return _userDal.GetUserRoles(user);
         }
     }
 }
