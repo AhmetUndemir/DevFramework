@@ -5,6 +5,7 @@ using DevFramework.Northwind.DataAccess.Abstract;
 using DevFramework.Northwind.Entities.Concrete;
 using DevFramework.Core.Aspects.Postsharp;
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 using DevFramework.Core.Aspects.Postsharp.AuthorizationAspects;
 using DevFramework.Core.Aspects.Postsharp.CacheAspect;
@@ -39,7 +40,14 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         [SecuredOperation(Roles="Admin,Editor,Student")]
         public List<Product> GetAll()
         {
-            return _productDal.GetList();
+            return _productDal.GetList().Select(p=>new Product()
+            {
+                CategoryID = p.CategoryID,
+                ProductID = p.ProductID,
+                ProductName = p.ProductName,
+                QuantityPerUnit = p.QuantityPerUnit,
+                UnitPrice = p.UnitPrice
+            }).ToList();
         }
 
         public Product GetById(int id)
