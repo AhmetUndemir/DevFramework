@@ -7,6 +7,7 @@ using DevFramework.Core.Aspects.Postsharp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using AutoMapper;
 using DevFramework.Core.Aspects.Postsharp.AuthorizationAspects;
 using DevFramework.Core.Aspects.Postsharp.CacheAspect;
 using DevFramework.Core.Aspects.Postsharp.LogAspects;
@@ -15,6 +16,7 @@ using DevFramework.Core.Aspects.Postsharp.TransactionAspect;
 using DevFramework.Core.Aspects.Postsharp.ValidationAspects;
 using DevFramework.Core.CrossCuttingConcerns.Caching.Microsoft;
 using DevFramework.Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
+using DevFramework.Core.Utilities.Mappings;
 using PostSharp.Aspects.Dependencies;
 
 namespace DevFramework.Northwind.Business.Concrete.Managers
@@ -40,15 +42,11 @@ namespace DevFramework.Northwind.Business.Concrete.Managers
         [SecuredOperation(Roles="Admin,Editor,Student")]
         public List<Product> GetAll()
         {
-            return _productDal.GetList().Select(p=>new Product()
-            {
-                CategoryID = p.CategoryID,
-                ProductID = p.ProductID,
-                ProductName = p.ProductName,
-                QuantityPerUnit = p.QuantityPerUnit,
-                UnitPrice = p.UnitPrice
-            }).ToList();
+
+            var products = AutoMapperHelper.MapToSameTypeList(_productDal.GetList());
+            return products;
         }
+
 
         public Product GetById(int id)
         {
